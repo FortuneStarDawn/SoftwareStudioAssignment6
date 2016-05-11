@@ -31,11 +31,12 @@ public class MainApplet extends PApplet
 		characters = new ArrayList<Character>();
 		networks = new ArrayList<Network>();
 		cp5 = new ControlP5(this);
-		PFont p = createFont("Georgia", 20); 
+		PFont p = createFont("Georgia", 20); //set label word format
 		cp5.setFont(p);
+		//add two button
 		cp5.addButton("add").setLabel("ADD ALL").setPosition(950, 70).setSize(200, 50).setColorBackground(color(173, 204, 180)).setColorForeground(color(185, 228, 199));
 		cp5.addButton("clear").setLabel("CLEAR").setPosition(950, 170).setSize(200, 50).setColorBackground(color(173, 204, 180)).setColorForeground(color(185, 228, 199));
-		loadData();
+		loadData(); //load characters and networks
 	}
 
 	public void draw() 
@@ -43,20 +44,21 @@ public class MainApplet extends PApplet
 		fill(120, 94, 84);
 		background(255);
 		textSize(26); 
-		text("Star Wars " + file.substring(17, 18), 530, 30);
+		text("Star Wars " + file.substring(17, 18), 530, 30); //print out the episode
 		fill(255);
 		stroke(213, 220, 185);
 		strokeWeight(4);
-		ellipse(600, 320, 500, 500);
-		for(Character character : characters) character.display();
-		for(Character character : characters) character.mouseEvent();
-		for(Network network : networks) network.display();
+		ellipse(600, 320, 500, 500); //print out the big circle in the middle
+		for(Character character : characters) character.display(); //display characters
+		for(Character character : characters) character.mouseEvent(); //display the change make by mouse event
+		for(Network network : networks) network.display(); //display the networks
 		
 	}
 
 	private void loadData()
 	{
 		int i;
+		//read *.json file
 		data = loadJSONObject(path+file);
 		nodes = data.getJSONArray("nodes");
 		links = data.getJSONArray("links");
@@ -81,6 +83,7 @@ public class MainApplet extends PApplet
 	
 	public void keyPressed()
 	{
+		//if press 1~7, change to the episode which user input
 		if(keyCode==0x31) file = "starwars-episode-1-interactions.json";
 		else if(keyCode==0x32) file = "starwars-episode-2-interactions.json";
 		else if(keyCode==0x33) file = "starwars-episode-3-interactions.json";
@@ -89,6 +92,7 @@ public class MainApplet extends PApplet
 		else if(keyCode==0x36) file = "starwars-episode-6-interactions.json";
 		else if(keyCode==0x37) file = "starwars-episode-7-interactions.json";
 		else return;
+		//clear and load again
 		characters.clear();
 		networks.clear();
 		loadData();
@@ -96,12 +100,14 @@ public class MainApplet extends PApplet
 	
 	public void add()
 	{
+		//when press the "Add All" button, put all the character into the big circle
 		for(Character character : characters) character.isIn = true;
 		characters.get(0).adjustCircle();
 	}
 	
 	public void clear()
 	{
+		//when press the "Clear" button, put all the character back to the origin position
 		for(Character character : characters)
 		{
 			character.isIn = false;

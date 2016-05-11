@@ -15,7 +15,7 @@ public class Network
 	public int s, d, v;
 	public Network(MainApplet parent, int s, int d, int v)
 	{
-
+		//initial variable
 		this.parent = parent;
 		this.s = s;
 		this.d = d;
@@ -25,10 +25,12 @@ public class Network
 
 	public void display()
 	{
+		//if the source and target are both in the big circle
 		if(this.parent.characters.get(s).isIn && this.parent.characters.get(d).isIn)
 		{
 
-			this.parent.fill(0,0,0);
+			this.parent.fill(0,0,0); //black line
+			//the thickness of the line depend on the value
 			if(v == 1) this.parent.strokeWeight(1);
 			if(v == 2) this.parent.strokeWeight(2);
 			if(v == 3) this.parent.strokeWeight(3);
@@ -39,6 +41,7 @@ public class Network
 			if(v == 8) this.parent.strokeWeight(7);
 			if(v == 9) this.parent.strokeWeight(8);
 			if(v == 10) this.parent.strokeWeight(8);
+			//draw line
 			this.parent.line(this.parent.characters.get(s).x+40, this.parent.characters.get(s).y+40, this.parent.characters.get(d).x+40, this.parent.characters.get(d).y+40);
 		
 		}
